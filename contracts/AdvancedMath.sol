@@ -46,7 +46,7 @@ library AdvancedMath {
 	 * @return exp(a)
 	 */
 	function exp(uint256 a) internal pure returns (uint256) {
-		return exp(a, 30);
+		return exp(a, 40);
 	}
 
 	/**
@@ -54,17 +54,23 @@ library AdvancedMath {
 	 * an optional argument for the range of the Fourier's development.
 	 * A higher range means higher precision but higher gas cost, a lower
 	 * range means lower precision but lower gas cost.
-	 * By default, the range is 20.
+	 * By default, the range is 40.
 	 * @param a The uint256 we want the exponential of
 	 * @param precision The number of Fourier's terms (= precision). Maximum precision is currently 57 to avoid overflows on the Factorial.
 	 * @return exp(a)
 	 */
 	function exp(uint256 a, uint256 precision) internal pure returns (uint256) {
 		uint256 s = 0;
-		for (uint256 i = 0 ; i <= precision ; i++) {
-			s = s.add(power(a, i).mul(100)/factorial(i));
+		if (a <= 10) {
+			for (uint256 i = 0 ; i <= precision ; i++) {
+				s = s.add(power(a, i).mul(100)/factorial(i));
+			}
+			return s/100;
 		}
-		return s/100;
+		for (uint256 i = 0 ; i <= precision ; i++) {
+			s = s.add(power(a, i)/factorial(i));
+		}
+		return s;
 	}
 
 	/**
@@ -81,7 +87,7 @@ library AdvancedMath {
 	 * an optional argument for the range of the Fourier's development.
 	 * A higher range means higher precision but higher gas cost, a lower
 	 * range means lower precision but lower gas cost.
-	 * By default, the range is 20.
+	//  * By default, the range is 40.
 	 * @param a The uint256 we want the exponential from
 	 * @param precision The number of Fourier's terms (= precision)
 	 * @return ln(a)

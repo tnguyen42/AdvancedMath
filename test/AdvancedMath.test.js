@@ -11,11 +11,11 @@ const AdvancedMathMock = artifacts.require("AdvancedMathMock");
 function approximateBN(bignumber, expected) {
 	const floor = expected - expected / 20;
 	const ceil = expected + expected / 20;
-	console.log("NEW TEST");
-	console.log("Actual value: ", bignumber.toNumber());
-	console.log("Expected: ", expected);
-	console.log("Maximum tolerated: ", ceil);
-	console.log("Minimum tolerated: ", floor);
+	// Uncomment this part to see the results during the test results
+	// console.log("Actual value: ", bignumber.toNumber());
+	// console.log("Expected: ", expected);
+	// console.log("Maximum tolerated: ", ceil);
+	// console.log("Minimum tolerated: ", floor);
 	target = bignumber.toNumber();
 	target.should.be.at.least(floor);
 	target.should.be.at.most(ceil);
@@ -80,8 +80,8 @@ contract("AdvancedMath", function() {
 			approximateBN(this.power, this.expected);
 		});
 		it("should return a correct value when there is no overflow", async function() {
-			this.power = await this.advancedMath.exp(200);
-			this.expected = Math.exp(200);
+			this.power = await this.advancedMath.exp(30);
+			this.expected = Math.exp(30);
 			approximateBN(this.power, this.expected);
 		});
 		it("should revert on overflow", async function() {
