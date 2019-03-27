@@ -28,4 +28,12 @@ contract AdvancedMathMock {
 		return AdvancedMath.exp(a);
 	}
 
+	function decimalExp(uint256 a, uint256 decimals, uint256 precision) public pure returns (uint256) {
+		return AdvancedMath.decimalExp(a, decimals, precision);
+	}
+
+	function decimalExp(uint256 a, uint256 decimals) public pure returns (uint256) {
+		return AdvancedMath.decimalExp(a, decimals);
+	}
+
 }

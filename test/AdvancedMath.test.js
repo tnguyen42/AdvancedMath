@@ -80,8 +80,39 @@ contract("AdvancedMath", function() {
 			approximateBN(this.power, this.expected);
 		});
 		it("should return a correct value when there is no overflow", async function() {
-			this.power = await this.advancedMath.exp(200);
-			this.expected = Math.exp(200);
+			this.power = await this.advancedMath.exp(30);
+			this.expected = Math.exp(30);
+			approximateBN(this.power, this.expected);
+		});
+		it("should revert on overflow", async function() {
+			await shouldFail.reverting(this.advancedMath.exp(2000));
+		});
+	});
+
+	describe("Decimal exponential tests", function() {
+		it("should return a correct value for decimalExp(0.0)", async function() {
+			this.power = await this.advancedMath.decimalExp(0, 0);
+			this.expected = Math.exp(0);
+			approximateBN(this.power, this.expected);
+		});
+		it("should return a correct value when there is no overflow", async function() {
+			this.power = await this.advancedMath.decimalExp(3, 30);
+			this.expected = Math.exp(3.3);
+			approximateBN(this.power, this.expected);
+		});
+		it("should return a correct value when there is no overflow", async function() {
+			this.power = await this.advancedMath.decimalExp(10, 50);
+			this.expected = Math.exp(10.5);
+			approximateBN(this.power, this.expected);
+		});
+		it("should return a correct value when there is no overflow", async function() {
+			this.power = await this.advancedMath.decimalExp(20, 99);
+			this.expected = Math.exp(20.99);
+			approximateBN(this.power, this.expected);
+		});
+		it("should return a correct value when there is no overflow", async function() {
+			this.power = await this.advancedMath.decimalExp(30, 2);
+			this.expected = Math.exp(30.02);
 			approximateBN(this.power, this.expected);
 		});
 		it("should revert on overflow", async function() {
